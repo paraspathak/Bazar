@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f8f8f8"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -44,6 +45,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:text="@string/login_button"
+        android:background="#3cb371"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
