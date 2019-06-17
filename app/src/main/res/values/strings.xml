@@ -3,4 +3,11 @@
     <string name="username_text">Enter Username</string>
     <string name="password_text">Enter Password</string>
     <string name="login_button">Login</string>
+    <string name="title_activity_slidermenu">Slidermenu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">My Bazar</string>
+    <string name="nav_header_subtitle">Buy and Sell items easily</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>

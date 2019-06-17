@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //Needs to query database here for password and username
         //Currently only implemented for admin admin
         if(username.equals("admin") && password.equals("admin")){
-            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            Intent intent = new Intent(MainActivity.this, Slidermenu.class);
             startActivity(intent);
         }
         else{
