@@ -112,6 +112,7 @@ public class Slidermenu extends AppCompatActivity
 
         } else if (id == R.id.MySale) {
 
+
         } else if (id == R.id.SellItems) {
 
         }
@@ -119,5 +120,9 @@ public class Slidermenu extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    //Deletes elements from the recycler view
+    public void remove_all_elements(){
+
     }
 }
