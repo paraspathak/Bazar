@@ -1,6 +1,7 @@
 package com.example.bazar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -18,6 +19,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private ArrayList<Items_on_sale> products_list;   //to store items
     private Context context;
 
+    public Items_on_sale return_at_index(int i){
+        return products_list.get(i);
+    }
 
     //Constructor
     public ProductAdapter(Context ctx, ArrayList<Items_on_sale> items) {
@@ -62,7 +66,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textview_product_title=itemView.findViewById(R.id.title_id);
             cardView= (CardView) itemView.findViewById(R.id.cardView);
         }
-        public void bind(Items_on_sale items){
+        public void bind(final Items_on_sale items){
             textview_product_description.setText(items.getProduct_description());
             textview_product_title.setText(items.getProduct_title());
             textview_product_price.setText(String.valueOf(items.getProduct_price()));
@@ -71,8 +75,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 @Override
                 public void onClick(View v) {
                     //Listener is Working
-                    textview_product_title.setText("Clicked");
-                    //remove all items and then open this
+                    //textview_product_title.setText("Clicked");
+                    Intent intent = new Intent(context, SecondActivity.class);
+                    intent.putExtra("id_number",items.getProduct_id());
+                    intent.putExtra("title",items.getProduct_title());
+                    context.startActivity(intent);
                 }
             });
         }

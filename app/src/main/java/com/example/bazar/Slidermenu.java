@@ -24,6 +24,9 @@ public class Slidermenu extends AppCompatActivity
     ProductAdapter adapter;
 
 
+    //Store the title bar of the view holder to change as needed
+    private Toolbar app_toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +56,7 @@ public class Slidermenu extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
+        app_toolbar=(Toolbar) findViewById(R.id.toolbar);
         //recyclerView.setAdapter(new ProductAdapter(this, products_list));
         load_items_on_sale();
 
