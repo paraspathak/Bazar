@@ -23,7 +23,6 @@ public class Slidermenu extends AppCompatActivity
     private RecyclerView recyclerView;
     ProductAdapter adapter;
 
-    ArrayList<Items_on_sale> products_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +49,13 @@ public class Slidermenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        products_list = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        products_list.add(new Items_on_sale(1,"Laptop",999.99, "Bona fide laptop","/res/drawable/logo.png"));
-        products_list.add(new Items_on_sale(1,"Phone",799.99, "Bona fide phone","/res/drawable/logo.png"));
-        products_list.add(new Items_on_sale(1,"Tablet",499.99, "Bona fide tablet","/res/drawable/logo.png"));
-        products_list.add(new Items_on_sale(1,"Camera",599.99, "Bona fide camera","/res/drawable/logo.png"));
 
-        recyclerView.setAdapter(new ProductAdapter(this, products_list));
+
+        //recyclerView.setAdapter(new ProductAdapter(this, products_list));
+        load_items_on_sale();
 
     }
 
@@ -109,9 +105,11 @@ public class Slidermenu extends AppCompatActivity
         } else if (id == R.id.Finances) {
 
         } else if (id == R.id.Marketplace) {
+            load_items_on_sale();
 
         } else if (id == R.id.MySale) {
-
+            //Connect with server and get all items currently on sale sold by me
+            recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_my_items_on_sale()),true);
 
         } else if (id == R.id.SellItems) {
 
@@ -125,4 +123,8 @@ public class Slidermenu extends AppCompatActivity
     public void remove_all_elements(){
 
     }
+    public void load_items_on_sale(){
+        recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_marketplace_items_on_sale()),true);
+    }
+
 }
