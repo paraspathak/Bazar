@@ -23,14 +23,16 @@ public class Buy_Screen extends AppCompatActivity {
                 test.setText("Server cannot be initialized");
             }
             else {
+                //Giving issue here
                 Items_on_sale items = server.return_marketplace_at_id(id);
-                if(items!=null){
-                  test.setText(items.getProduct_title());
-                }
-                else {
+                //test.setText(items.getClass().getName());
+                //if(items!=null){
+                  //test.setText(items.getProduct_title());
+                //}
+                //else {
                 //Handle error case here
-                  test.setText("Null Item");
-                }
+                  //test.setText("Null Item");
+                //}
             }
             //
 
