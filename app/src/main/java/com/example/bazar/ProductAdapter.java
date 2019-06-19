@@ -57,7 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     class ProductViewHolder extends RecyclerView.ViewHolder {
         ImageView imageview_product_image;
         CardView cardView;
-        TextView textview_product_title, textview_product_description, textview_product_price;
+        TextView textview_product_title,textview_short_product_description, textview_product_description, textview_product_price;
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             imageview_product_image=itemView.findViewById(R.id.image_id);
