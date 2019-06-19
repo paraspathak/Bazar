@@ -6,16 +6,98 @@
     android:layout_height="match_parent"
     tools:context=".Buy_Screen">
 
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.GridLayout
+        android:layout_width="395dp"
+        android:layout_height="715dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Buy Screen"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/item_buy_button2"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            app:layout_column="1"
+            app:layout_row="4" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Buy Screen"
+            app:layout_column="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.252"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.045"
+            app:layout_row="0" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="206dp"
+            android:layout_height="203dp"
+            app:layout_column="0"
+            app:layout_row="1"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/short_description_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="short description"
+            app:layout_column="1"
+            app:layout_row="1" />
+
+        <Button
+            android:id="@+id/add_to_cart_button"
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:text="Add to Cart"
+            app:layout_column="0"
+            app:layout_row="4" />
+
+        <TextView
+            android:id="@+id/quantity_of_item"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:text="Enter Quantity"
+            app:layout_column="0"
+            app:layout_row="2" />
+
+        <EditText
+            android:id="@+id/number_to_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="1"
+            android:inputType="numberSigned"
+            app:layout_column="1"
+            app:layout_row="2" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price"
+            app:layout_column="0"
+            app:layout_row="3" />
+
+        <TextView
+            android:id="@+id/price_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$59"
+            app:layout_column="1"
+            app:layout_row="3" />
+
+    </android.support.v7.widget.GridLayout>
 </android.support.constraint.ConstraintLayout>

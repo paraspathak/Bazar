@@ -15,7 +15,6 @@ public class Communicate_with_server {
         products_in_bazar.add(new Items_on_sale(3,"Phone",799.99, "Bona fide phone","Awesome","/res/drawable/logo.png"));
         products_in_bazar.add(new Items_on_sale(4,"Tablet",499.99, "Bona fide tablet","Awesome","/res/drawable/logo.png"));
         products_in_bazar.add(new Items_on_sale(5,"Camera",599.99, "Bona fide camera","Awesome","/res/drawable/logo.png"));
-
     }
 
     static ArrayList<Items_on_sale> get_my_items_on_sale(){
@@ -40,6 +39,7 @@ public class Communicate_with_server {
         return products_on_bazar;
     }
     Items_on_sale return_marketplace_at_id(int i){
+    //Connect to server here to get an id
         for( Items_on_sale items : this.products_in_bazar){
             if(items.getProduct_id()==i){
                 return this.products_in_bazar.get(i);

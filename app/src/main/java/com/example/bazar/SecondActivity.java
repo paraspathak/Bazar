@@ -14,6 +14,7 @@ public class SecondActivity extends AppCompatActivity {
     TextView name, price, description, description_short;
     Button buy;
     double price_of_item;
+    String image_location;
     int id_product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class SecondActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         int id;
         if(extras!=null){
+            image_location=extras.getString("image");
             price_of_item= extras.getDouble("price");
             this.id_product = extras.getInt("id_number");
             name.setText(extras.getString("title"));
@@ -44,6 +46,11 @@ public class SecondActivity extends AppCompatActivity {
     public void load_buy_view(View view){
         Intent intent = new Intent(SecondActivity.this,Buy_Screen.class);
         intent.putExtra("id",this.id_product);
+        intent.putExtra("title",name.getText());
+        intent.putExtra("price",price_of_item);
+        intent.putExtra("description",description_short.getText());
+        intent.putExtra("description_long",description.getText());
+        intent.putExtra("image",image_location);
         startActivity(intent);
 
     }
