@@ -20,6 +20,7 @@
             android:id="@+id/item_buy_button2"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
+            android:onClick="buy_click"
             android:text="Buy"
             app:layout_column="1"
             app:layout_row="4" />
@@ -62,6 +63,7 @@
             android:layout_width="177dp"
             android:layout_height="wrap_content"
             android:text="Add to Cart"
+            android:onClick="add_to_cart"
             app:layout_column="0"
             app:layout_row="4" />
 
@@ -98,6 +100,13 @@
             android:text="$59"
             app:layout_column="1"
             app:layout_row="3" />
+
+        <TextView
+            android:id="@+id/Success_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_column="1"
+            app:layout_row="0" />
 
     </android.support.v7.widget.GridLayout>
 </android.support.constraint.ConstraintLayout>
