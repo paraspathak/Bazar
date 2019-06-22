@@ -3,8 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="cardbackground">#f0f8ff</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#f79f81</color>
     <color name="headlines">#000000</color>
     <color name="background_button">#00cc44</color>
     <color name="dollar">#ff0000</color>
+    <color name="buypage">#ffffff</color>
 </resources>

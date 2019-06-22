@@ -29,6 +29,7 @@
         android:scaleType="centerInside"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="end|bottom"
+        android:elevation="4dp"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
