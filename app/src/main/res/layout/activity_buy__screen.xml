@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Buy_Screen">
+    <include layout="@layout/toolbar_with_slidermenu"/>
 
     <android.support.v7.widget.GridLayout
         android:layout_width="395dp"
@@ -15,6 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <Button
             android:id="@+id/item_buy_button2"

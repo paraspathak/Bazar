@@ -2,12 +2,15 @@ package com.example.bazar;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 public class SecondActivity extends AppCompatActivity {
     ImageView image;
@@ -16,12 +19,20 @@ public class SecondActivity extends AppCompatActivity {
     double price_of_item;
     String image_location;
     int id_product;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
        //Somehow pass the values
 
         super.onCreate(savedInstanceState);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+
+
         setContentView(R.layout.activity_second);
         buy = (Button) findViewById(R.id.Buy_Item_button);
         image = (ImageView) findViewById(R.id.ProductImage);
