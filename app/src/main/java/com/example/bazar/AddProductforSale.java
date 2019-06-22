@@ -1,12 +1,14 @@
 package com.example.bazar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class AddProductforSale extends AppCompatActivity {
@@ -24,11 +28,6 @@ public class AddProductforSale extends AppCompatActivity {
     private TextView photo_status;
     private ImageView photo_taken;
     private Button take_picture;
-    public final String APP_TAG = "Bazar";
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
-    File photoFile;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,47 +43,49 @@ public class AddProductforSale extends AppCompatActivity {
         take_picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 dispatchTakePictureIntent();
             }
         });
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int GALLERY = 0;
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Capture photo from camera",
+                "Select photo from gallery"
+                 };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(which==0){
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                            }
+                        }
+                        else if(which ==1){
+                            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                            if(galleryIntent.resolveActivity(getPackageManager())!=null){
+                                startActivityForResult(galleryIntent, GALLERY);
+                            }
+
+
+                        }
+                    }
+                });
+        pictureDialog.show();
+
+
     }
 
-    /*
-
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = photo_taken.getWidth();
-        int targetH = photo_taken.getHeight();
-
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        photo_taken.setImageBitmap(bitmap);
-    }
-
-*/
     public void takepicture(View view){
 
       //Take or choose picture from here
@@ -98,15 +99,38 @@ public class AddProductforSale extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+
             photo_taken.setImageBitmap(imageBitmap);
+            photo_taken.setScaleX((float) 1.5);
+        }
+        else if(requestCode== GALLERY && resultCode == RESULT_OK){
+            Uri contentURI = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                Toast.makeText(AddProductforSale.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+                //get the path of the image
+                photo_taken.setImageBitmap(bitmap);
+            }catch (IOException e){
+                e.printStackTrace();
+                Toast.makeText(AddProductforSale.this, "Cannot save image",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
 
     public void cancelclick(View view){
+        name.setText("");
+        price.setText("");
+        short_description.setText("");
+        long_description.setText("");
+        photo_taken.setImageDrawable(null);
 
     }
     public void submitclick(View view){
 
+        //Communicate_with_server.add_product_to_database(name.getText(),Double.parseDouble(price.getText()),);
+
+        Intent intent = new Intent(view.getContext(), Slidermenu.class);
+        view.getContext().startActivity(intent);
     }
 }

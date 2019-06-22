@@ -46,4 +46,8 @@ public class Communicate_with_server {
         }
         return null;
     }
+
+    static public void add_product_to_database(String title, double price, String short_description, String long_description, String image_location){
+
+    }
 }

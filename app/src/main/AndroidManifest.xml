@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".AddProductforSale">
+        <activity android:name=".AddProductforSale"
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
 
