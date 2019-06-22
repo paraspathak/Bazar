@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -28,6 +31,7 @@ public class AddProductforSale extends AppCompatActivity {
     private TextView photo_status;
     private ImageView photo_taken;
     private Button take_picture;
+    private StorageReference database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class AddProductforSale extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
+        database = FirebaseStorage.getInstance().getReference();
     }
 
     static final int REQUEST_IMAGE_CAPTURE = 1;

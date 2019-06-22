@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "41818596173",
+    "firebase_url": "https://bazar-b62e6.firebaseio.com",
+    "project_id": "bazar-b62e6",
+    "storage_bucket": "bazar-b62e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41818596173:android:6a60779f957bea77",
+        "android_client_info": {
+          "package_name": "com.example.bazar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41818596173-bt2l23j8j1fajcj8tl6nrt0thq81vv3f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bazar",
+            "certificate_hash": "a31d2a2ad08a210edfe9dceae111a0d350c216cb"
+          }
+        },
+        {
+          "client_id": "41818596173-jc9i3jri3akvkp0s5tgccf660s4uqger.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkWvGHHMa3lKCYuiF4budkC7ndznFH4dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41818596173-jc9i3jri3akvkp0s5tgccf660s4uqger.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
