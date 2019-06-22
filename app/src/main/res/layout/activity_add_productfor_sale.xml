@@ -18,6 +18,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Enter Price of Product"
+        android:inputType="numberDecimal"
         android:textColor="@color/headlines"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +29,7 @@
         app:layout_constraintVertical_bias="0.172" />
 
     <EditText
-        android:id="@+id/name_entry3"
+        android:id="@+id/name_of_product_entry"
         android:layout_width="283dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -94,7 +95,7 @@
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.079" />
+        app:layout_constraintVertical_bias="0.092" />
 
     <TextView
         android:id="@+id/price_field"
@@ -111,7 +112,7 @@
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintVertical_bias="0.185" />
 
     <TextView
         android:id="@+id/longdes_field"
@@ -120,7 +121,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Long Description"
+        android:text="Long Description:"
         android:textAlignment="viewStart"
         android:textColor="@color/headlines"
         android:textSize="15sp"
@@ -154,6 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="cancelclick"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -174,6 +176,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="submitclick"
         android:text="Add Product"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,6 +200,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
+        android:onClick="takepicture"
         app:layout_constraintVertical_bias="0.752" />
 
     <TextView
