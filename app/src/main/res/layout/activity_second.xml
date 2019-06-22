@@ -9,8 +9,8 @@
     <include layout="@layout/toolbar_with_slidermenu"/>
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="715dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -18,19 +18,20 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <ImageView
             android:id="@+id/ProductImage"
-            android:layout_width="357dp"
+            android:layout_width="match_parent"
             android:layout_height="224dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.21"
@@ -41,6 +42,8 @@
 
         <TextView
             android:id="@+id/ProductName"
+            android:textSize="20sp"
+            android:textColor="@color/headlines"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
@@ -63,6 +66,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:textSize="15sp"
+            android:textColor="@color/headlines"
             android:text="Price"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,8 +80,9 @@
             android:id="@+id/Buy_Item_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buy"
-            android:onClick="load_buy_view"/>
+            android:onClick="load_buy_view"
+            android:background="@color/background_button"
+            android:text="Buy" />
 
         <TextView
             android:id="@+id/short_description"
@@ -86,6 +92,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:textSize="15sp"
+            android:textColor="@color/headlines"
             android:text="Description of Items on sale"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +104,8 @@
 
         <TextView
             android:id="@+id/Description"
+            android:textSize="15sp"
+            android:textColor="@color/headlines"
             android:layout_width="360dp"
             android:layout_height="215dp"
             android:layout_marginStart="8dp"
