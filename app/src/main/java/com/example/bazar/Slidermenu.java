@@ -32,6 +32,7 @@ public class Slidermenu extends AppCompatActivity
     private RecyclerView recyclerView;
     ProductAdapter adapter;
     ArrayList<Product> products_in_sale;
+    ArrayList<Product> my_products_in_sale;
 
     //Store the title bar of the view holder to change as needed
     private Toolbar app_toolbar;
@@ -39,6 +40,7 @@ public class Slidermenu extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.products_in_sale= new ArrayList<>();
+        this.my_products_in_sale= new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidermenu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -169,6 +171,21 @@ public class Slidermenu extends AppCompatActivity
         } else if (id == R.id.MySale) {
             //Connect with server and get all items currently on sale sold by me
             //recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_my_items_on_sale()),true);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference products = database.getReference("myproducts");
+
+            products.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Map<String, Object> data = (Map<String, Object>)dataSnapshot.getValue();
+                    update_my_items(data);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         } else if (id == R.id.SellItems) {
 
@@ -202,6 +219,21 @@ public class Slidermenu extends AppCompatActivity
 
         recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
 
+    }
+
+    public void update_my_items(Map<String,Object> data){
+        for(Map.Entry<String,Object> entry:data.entrySet()){
+            Map singleProduct = (Map) entry.getValue();
+            this.my_products_in_sale.add(new Product(
+                    (String) singleProduct.get("id"),
+                    (String) singleProduct.get("titile"),
+                    (String) singleProduct.get("price"),
+                    (String) singleProduct.get("short"),
+                    (String) singleProduct.get("long"),
+                    (String) singleProduct.get("image")
+            ));
+        }
+        recyclerView.swapAdapter(new ProductAdapter(this, my_products_in_sale),true);
     }
 
 }

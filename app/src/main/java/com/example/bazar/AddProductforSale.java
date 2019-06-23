@@ -163,6 +163,7 @@ public class AddProductforSale extends AppCompatActivity {
 
         Product product = new Product(this.username,title_of_item,price_of_item,short_description_of_iem,long_description_of_iem,this.file_in_string);
         DatabaseReference product_database = database.getReference("products");
+        DatabaseReference my_products = database.getReference("myproducts");
 
         //Creating a key by the database should use persons key instead
         String userid = product_database.push().getKey();
@@ -176,7 +177,7 @@ public class AddProductforSale extends AppCompatActivity {
         database_entry.put("long",long_description_of_iem);
         database_entry.put("image",this.file_in_string);
         product_database.child(userid).setValue(database_entry);
-
+        my_products.child(userid).setValue(database_entry);
 
         //product_database.child(userid).setValue(product);
         Intent intent = new Intent(view.getContext(), Slidermenu.class);
