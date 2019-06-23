@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText Username;
     private EditText Password;
     private Button login_button;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         Username=(EditText) findViewById(R.id.username);
         Password = (EditText) findViewById(R.id.password);
         login_button = (Button) findViewById(R.id.loginbutton);
+        username = Username.getText().toString();
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,12 +35,16 @@ public class MainActivity extends AppCompatActivity {
     private void authenticate_user (String username, String password){
         //Needs to query database here for password and username
         //Currently only implemented for admin admin
-        if(username.equals("admin") && password.equals("admin")){
+        if(username.equals("paraspathak@outlook.com") && password.equals("admin")){
             Intent intent = new Intent(MainActivity.this, Slidermenu.class);
             startActivity(intent);
+            intent.putExtra("username",this.username);
         }
         else{
             Username.setText("Incorrect Password");
         }
+    }
+    public String return_username(){
+        return username;
     }
 }

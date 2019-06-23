@@ -55,6 +55,21 @@ public class Slidermenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        String username ;
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            username = extras.getString("username");
+            final String username_final = username;
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(),AddProductforSale.class);
+                    intent.putExtra("username",username_final);
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +77,8 @@ public class Slidermenu extends AppCompatActivity
                 v.getContext().startActivity(intent);
             }
         });
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
