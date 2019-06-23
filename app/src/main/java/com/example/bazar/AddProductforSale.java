@@ -176,6 +176,8 @@ public class AddProductforSale extends AppCompatActivity {
         database_entry.put("long",long_description_of_iem);
         database_entry.put("image",this.file_in_string);
         product_database.child(userid).setValue(database_entry);
+
+
         //product_database.child(userid).setValue(product);
         Intent intent = new Intent(view.getContext(), Slidermenu.class);
         view.getContext().startActivity(intent);
