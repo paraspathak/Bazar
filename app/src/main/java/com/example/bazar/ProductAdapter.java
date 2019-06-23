@@ -2,10 +2,12 @@ package com.example.bazar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +18,15 @@ import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
-    private ArrayList<Items_on_sale> products_list;   //to store items
+    private ArrayList<Product> products_list;   //to store items
     private Context context;
 
-    public Items_on_sale return_at_index(int i){
+    public Product return_at_index(int i){
         return products_list.get(i);
     }
 
     //Constructor
-    public ProductAdapter(Context ctx, ArrayList<Items_on_sale> items) {
+    public ProductAdapter(Context ctx, ArrayList<Product> items) {
         this.products_list=items;
         this.context=ctx;
     }
@@ -39,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i) {
-        Items_on_sale item = products_list.get(i);
+        Product item = products_list.get(i);
         productViewHolder.bind(item);
         /*
         productViewHolder.textview_product_title.setText(item.getProduct_title());
@@ -66,26 +68,36 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textview_product_title=itemView.findViewById(R.id.title_id);
             cardView= (CardView) itemView.findViewById(R.id.cardView);
         }
-        public void bind(final Items_on_sale items){
-            textview_product_description.setText(items.getProduct_description());
-            textview_product_title.setText(items.getProduct_title());
-            textview_product_price.setText(String.valueOf(items.getProduct_price()));
-            imageview_product_image.setImageBitmap(BitmapFactory.decodeFile(items.getProduct_image_location()));
+        public void bind(final Product items){
+            textview_product_description.setText(items.getShort_description());
+            textview_product_title.setText(items.getTitle());
+            textview_product_price.setText(items.getPrice());
+            imageview_product_image.setImageBitmap(StringToBitMap(items.getImage_uri()));
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Listener is Working
                     //textview_product_title.setText("Clicked");
                     Intent intent = new Intent(context, SecondActivity.class);
-                    intent.putExtra("id_number",items.getProduct_id());
-                    intent.putExtra("title",items.getProduct_title());
-                    intent.putExtra("price",items.getProduct_price());
-                    intent.putExtra("description",items.getProduct_description());
-                    intent.putExtra("description_long",items.getProduct_description_long());
-                    intent.putExtra("image",items.getProduct_image_location());
+                    intent.putExtra("id_number",items.getUser_id());
+                    intent.putExtra("title",items.getTitle());
+                    intent.putExtra("price",items.getPrice());
+                    intent.putExtra("description",items.getShort_description());
+                    intent.putExtra("description_long",items.getLong_description());
+                    intent.putExtra("image",items.getImage_uri());
                     context.startActivity(intent);
                 }
             });
+        }
+        public Bitmap StringToBitMap(String encodedString){
+            try {
+                byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+                Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                return bitmap;
+            } catch(Exception e) {
+                e.getMessage();
+                return null;
+            }
         }
     }
 }

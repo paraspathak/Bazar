@@ -16,4 +16,56 @@ public class Product {
     public void setUser_id(String user_id){
         this.user_id=user_id;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
+
+    public String getLong_description() {
+        return long_description;
+    }
+
+    public void setLong_description(String long_description) {
+        this.long_description = long_description;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getImage_uri() {
+        return image_uri;
+    }
+
+    public void setImage_uri(String image_uri) {
+        this.image_uri = image_uri;
+    }
 }

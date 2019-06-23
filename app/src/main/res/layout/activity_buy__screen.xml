@@ -46,7 +46,7 @@
             app:layout_row="0" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/activity_buy_image"
             android:layout_width="206dp"
             android:layout_height="203dp"
             app:layout_column="0"

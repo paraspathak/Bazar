@@ -1,5 +1,8 @@
 package com.example.bazar;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class Communicate_with_server {
@@ -28,6 +31,14 @@ public class Communicate_with_server {
         ArrayList<Items_on_sale> products_on_bazar= new ArrayList<>();
         //Demo items currently
         //Need to load items from database here
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference products = database.getReference("products");
+
+
+
+
+
+
         products_on_bazar.add(new Items_on_sale(0,"Mouse",99.99,"Apple Mouse", "Awesome","/src/logo.png"));
         products_on_bazar.add(new Items_on_sale(1,"Keyboard",199.99,"Apple Keyboard","Awesome","/src/logo.png"));
         products_on_bazar.add(new Items_on_sale(2,"Laptop",999.99, "Bona fide laptop","Awesome","/res/drawable/logo.png"));

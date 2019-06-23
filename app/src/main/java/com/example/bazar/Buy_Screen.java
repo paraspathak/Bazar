@@ -1,10 +1,14 @@
 package com.example.bazar;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Buy_Screen extends AppCompatActivity {
@@ -49,9 +53,12 @@ public class Buy_Screen extends AppCompatActivity {
         if(extras!=null){
             test.setText(extras.getString("title"));
             short_description.setText(extras.getString("description_short"));
-            price_of_item=extras.getDouble("price");
-            price_total.setText(String.valueOf(price_of_item));
+            String price_item=extras.getString("price");
+            price_of_item = Double.valueOf(price_item);
+            price_total.setText((price_item));
             current_total=price_of_item;
+            ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
+            img.setImageBitmap(StringToBitMap(extras.getString("image")));
         }
 
 
@@ -63,4 +70,15 @@ public class Buy_Screen extends AppCompatActivity {
     public void buy_click(View view){
         success_screen.setText("Start a new intent of buying item");
     }
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
 }

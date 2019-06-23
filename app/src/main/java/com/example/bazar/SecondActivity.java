@@ -1,10 +1,12 @@
 package com.example.bazar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +18,7 @@ public class SecondActivity extends AppCompatActivity {
     ImageView image;
     TextView name, price, description, description_short;
     Button buy;
-    double price_of_item;
-    String image_location;
-    int id_product;
+    String image_location,price_of_item,id_product;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,25 @@ public class SecondActivity extends AppCompatActivity {
         int id;
         if(extras!=null){
             image_location=extras.getString("image");
-            price_of_item= extras.getDouble("price");
-            this.id_product = extras.getInt("id_number");
+            price_of_item= extras.getString("price");
+            this.id_product = extras.getString("id_number");
             name.setText(extras.getString("title"));
-            price.setText(String.valueOf(price_of_item));
+            price.setText((price_of_item));
             description.setText(extras.getString("description_long"));
             description_short.setText(extras.getString("description"));
+            image.setImageBitmap(StringToBitMap(image_location));
+
+        }
+    }
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
         }
     }
 

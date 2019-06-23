@@ -2,6 +2,7 @@ package com.example.bazar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,20 +17,28 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Slidermenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
     ProductAdapter adapter;
-
+    ArrayList<Product> products_in_sale;
 
     //Store the title bar of the view holder to change as needed
     private Toolbar app_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.products_in_sale= new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidermenu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -86,7 +95,26 @@ public class Slidermenu extends AppCompatActivity
 
         app_toolbar=(Toolbar) findViewById(R.id.toolbar);
         //recyclerView.setAdapter(new ProductAdapter(this, products_list));
-        load_items_on_sale();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference products = database.getReference("products");
+
+        products.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String, Object> data = (Map<String, Object>)dataSnapshot.getValue();
+                update_recycler_view(data);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        //load_items_on_sale();
 
     }
 
@@ -140,7 +168,7 @@ public class Slidermenu extends AppCompatActivity
 
         } else if (id == R.id.MySale) {
             //Connect with server and get all items currently on sale sold by me
-            recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_my_items_on_sale()),true);
+            //recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_my_items_on_sale()),true);
 
         } else if (id == R.id.SellItems) {
 
@@ -155,7 +183,25 @@ public class Slidermenu extends AppCompatActivity
 
     }
     public void load_items_on_sale(){
-        recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_marketplace_items_on_sale()),true);
+        recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
+    }
+
+    public void update_recycler_view(Map<String, Object> data){
+
+        for(Map.Entry<String,Object> entry:data.entrySet()){
+            Map singleProduct = (Map) entry.getValue();
+            this.products_in_sale.add(new Product(
+                    (String) singleProduct.get("id"),
+                    (String) singleProduct.get("titile"),
+                    (String) singleProduct.get("price"),
+                    (String) singleProduct.get("short"),
+                    (String) singleProduct.get("long"),
+                    (String) singleProduct.get("image")
+            ));
+        }
+
+        recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
+
     }
 
 }
