@@ -96,10 +96,12 @@ public class Buy_Screen extends AppCompatActivity {
 
     }
     public void add_to_cart(View view){
+        //Delete the image file
         success_screen.setText("Item successfully added");
     }
 
     public void buy_click(View view){
+        //Delete the image file
         success_screen.setText("Start a new intent of buying item");
     }
     public Bitmap StringToBitMap(String encodedString){

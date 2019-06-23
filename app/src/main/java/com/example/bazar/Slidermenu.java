@@ -1,16 +1,13 @@
 package com.example.bazar;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.LruCache;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,19 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class Slidermenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recyclerView;
-    ProductAdapter adapter;
     ArrayList<Product> products_in_sale;
     ArrayList<Product> my_products_in_sale;
-
-
-    //Store the title bar of the view holder to change as needed
-    private Toolbar app_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +92,6 @@ public class Slidermenu extends AppCompatActivity
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        app_toolbar=(Toolbar) findViewById(R.id.toolbar);
-        //recyclerView.setAdapter(new ProductAdapter(this, products_list));
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference products = database.getReference("products");
@@ -110,7 +100,14 @@ public class Slidermenu extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map<String, Object> data = (Map<String, Object>)dataSnapshot.getValue();
-                update_recycler_view(data);
+                if(data!=null){
+                    update_recycler_view(data);
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(),"No Items Currently on Sale",Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
             }
 
             @Override
@@ -184,7 +181,13 @@ public class Slidermenu extends AppCompatActivity
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Map<String, Object> data = (Map<String, Object>)dataSnapshot.getValue();
-                    update_my_items(data);
+                    if(data !=null){
+                        update_my_items(data);
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(),"No Current Items on Sale by You",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
 
                 @Override
@@ -194,6 +197,8 @@ public class Slidermenu extends AppCompatActivity
             });
 
         } else if (id == R.id.SellItems) {
+            Intent intent = new Intent(getApplicationContext(), AddProductforSale.class);
+            startActivity(intent);
 
         }
 
@@ -225,16 +230,6 @@ public class Slidermenu extends AppCompatActivity
 
         recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
 
-    }
-    public Bitmap StringToBitMap(String encodedString){
-        try {
-            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch(Exception e) {
-            e.getMessage();
-            return null;
-        }
     }
 
     public void update_my_items(Map<String,Object> data){
