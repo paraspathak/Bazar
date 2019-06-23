@@ -26,18 +26,13 @@ public class SecondActivity extends AppCompatActivity {
     TextView name, price, description, description_short;
     Button buy;
     String image_location,price_of_item,id_product;
-    private Toolbar toolbar;
+    Product product;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-       //Somehow pass the values
-
         super.onCreate(savedInstanceState);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         setContentView(R.layout.activity_second);
+
         buy = (Button) findViewById(R.id.Buy_Item_button);
         image = (ImageView) findViewById(R.id.ProductImage);
         name = (TextView) findViewById(R.id.ProductName);
@@ -48,6 +43,14 @@ public class SecondActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         int id;
         if(extras!=null){
+            id_product = extras.getString("id");
+            this.product =  ProductsDatabase.Get_product_with_key(id_product) ;
+            name.setText(product.getTitle());
+            price.setText(product.getPrice());
+            description_short.setText(product.getShort_description());
+            description.setText(product.getLong_description());
+            image.setImageBitmap(StringToBitMap(product.getImage_uri()));
+            /*
             image_location=extras.getString("image");
             price_of_item= extras.getString("price");
             this.id_product = extras.getString("id_number");
@@ -75,7 +78,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
             image.setImageBitmap(StringToBitMap(image_location_disk));
-
+            */
         }
     }
 
@@ -93,11 +96,15 @@ public class SecondActivity extends AppCompatActivity {
     public void load_buy_view(View view){
         Intent intent = new Intent(SecondActivity.this,Buy_Screen.class);
         intent.putExtra("id",this.id_product);
+        ProductsDatabase.Add_product_with_key(this.product,this.id_product);
+
+        /*
         intent.putExtra("title",name.getText());
         intent.putExtra("price",price_of_item);
         intent.putExtra("description",description_short.getText());
         intent.putExtra("description_long",description.getText());
         intent.putExtra("image",image_location);
+        */
         startActivity(intent);
 
     }

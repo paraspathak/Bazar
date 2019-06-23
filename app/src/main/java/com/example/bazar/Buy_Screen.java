@@ -1,5 +1,6 @@
 package com.example.bazar;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,8 @@ import java.io.InputStreamReader;
 public class Buy_Screen extends AppCompatActivity {
     TextView test, short_description, number_of_item, price_total, success_screen;
     double price_of_item, current_total;
+    Product product;
+    private String image_location, title, short_des, long_des, price_item, product_id;
     int quantity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +32,10 @@ public class Buy_Screen extends AppCompatActivity {
         setContentView(R.layout.activity_buy__screen);
         test = (TextView) findViewById(R.id.title);
         short_description = (TextView) findViewById(R.id.short_description_cart);
-        number_of_item = (TextView) findViewById(R.id.number_to_buy);
         price_total = (TextView) findViewById(R.id.price_update);
         success_screen = (TextView) findViewById(R.id.Success_banner);
-        Bundle extras = getIntent().getExtras();
 
-
+        number_of_item = (TextView) findViewById(R.id.number_to_buy);
         number_of_item.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -60,15 +61,34 @@ public class Buy_Screen extends AppCompatActivity {
             }
         });
 
+        Bundle extras = getIntent().getExtras();
         if(extras!=null){
+            //Get key passed from previous intent
+            this.product_id = extras.getString("id");
+
+            //get the product Object
+            this.product = ProductsDatabase.Get_product_with_key(product_id);
+            test.setText(product.getTitle());
+            short_description.setText(short_des);
+            price_of_item = Double.valueOf(product.getPrice());
+            price_total.setText((price_item));
+            current_total=price_of_item;
+            ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
+            img.setImageBitmap(StringToBitMap(product.getImage_uri()));
+
+
+
+            /*
             test.setText(extras.getString("title"));
-            short_description.setText(extras.getString("description_short"));
-            String price_item=extras.getString("price");
+            short_des = extras.getString("description");
+            long_des = extras.getString("description_long");
+            short_description.setText(short_des);
+            price_item=extras.getString("price");
             price_of_item = Double.valueOf(price_item);
             price_total.setText((price_item));
             current_total=price_of_item;
             ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
-            String image_location = extras.getString("image");
+            image_location = extras.getString("image");
             File directory = getFilesDir();
             StringBuilder total = new StringBuilder();
             try {
@@ -89,6 +109,7 @@ public class Buy_Screen extends AppCompatActivity {
 
 
             img.setImageBitmap(StringToBitMap(image_location_disk));
+            */
         }
 
 
@@ -102,6 +123,21 @@ public class Buy_Screen extends AppCompatActivity {
 
     public void buy_click(View view){
         //Delete the image file
+        Intent intent = new Intent(view.getContext(), Cart.class);
+        intent.putExtra("id",this.product_id);
+
+        /*
+        intent.putExtra("image",image_location);
+        intent.putExtra("title",title);
+        intent.putExtra("price",price_item);
+        intent.putExtra("description_short",short_des);
+        intent.putExtra("description_long",long_des);
+        */
+
+        ProductsDatabase.add_to_cart(new Product(" ",title,price_item,short_des,long_des,image_location));
+        ProductsDatabase.Add_product_with_key(this.product,this.product_id);
+        view.getContext().startActivity(intent);
+
         success_screen.setText("Start a new intent of buying item");
     }
     public Bitmap StringToBitMap(String encodedString){

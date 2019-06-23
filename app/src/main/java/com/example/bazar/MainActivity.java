@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private void authenticate_user (String username, String password){
         //Needs to query database here for password and username
         //Currently only implemented for admin admin
-        if(username.equals("paraspathak@outlook.com") && password.equals("admin")){
+        if(username.equals("admin") && password.equals("admin")){
             Intent intent = new Intent(MainActivity.this, Slidermenu.class);
             startActivity(intent);
             intent.putExtra("username",this.username);
@@ -47,4 +47,5 @@ public class MainActivity extends AppCompatActivity {
     public String return_username(){
         return username;
     }
+
 }

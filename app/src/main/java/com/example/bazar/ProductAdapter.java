@@ -82,6 +82,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     //textview_product_title.setText("Clicked");
                     Intent intent = new Intent(context, SecondActivity.class);
                     intent.putExtra("id_number",items.getUser_id());
+                    ProductsDatabase.Add_product_with_key(items,items.getUser_id());
+                    /*
                     intent.putExtra("title",items.getTitle());
                     intent.putExtra("price",items.getPrice());
                     intent.putExtra("description",items.getShort_description());
@@ -98,6 +100,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         e.printStackTrace();
                     }
                     intent.putExtra("image",filename);
+
+                    */
                     context.startActivity(intent);
                 }
             });
