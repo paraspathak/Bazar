@@ -7,9 +7,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Buy_Screen extends AppCompatActivity {
     TextView test, short_description, number_of_item, price_total, success_screen;
@@ -25,6 +33,8 @@ public class Buy_Screen extends AppCompatActivity {
         price_total = (TextView) findViewById(R.id.price_update);
         success_screen = (TextView) findViewById(R.id.Success_banner);
         Bundle extras = getIntent().getExtras();
+
+
         number_of_item.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -58,8 +68,30 @@ public class Buy_Screen extends AppCompatActivity {
             price_total.setText((price_item));
             current_total=price_of_item;
             ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
-            img.setImageBitmap(StringToBitMap(extras.getString("image")));
+            String image_location = extras.getString("image");
+            File directory = getFilesDir();
+            StringBuilder total = new StringBuilder();
+            try {
+                File secondInputFile = new File(directory, image_location);
+                InputStream secondInputStream = new BufferedInputStream(new FileInputStream(secondInputFile));
+                BufferedReader r = new BufferedReader(new InputStreamReader(secondInputStream));
+                String line;
+                while ((line = r.readLine()) != null) {
+                    total.append(line);
+                }
+                r.close();
+                secondInputStream.close();
+                Log.d("File", "File contents: " + total);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String image_location_disk = total.toString();
+
+
+            img.setImageBitmap(StringToBitMap(image_location_disk));
         }
+
+
 
 
     }

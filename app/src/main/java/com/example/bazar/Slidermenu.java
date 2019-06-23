@@ -1,12 +1,16 @@
 package com.example.bazar;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.LruCache;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +37,7 @@ public class Slidermenu extends AppCompatActivity
     ProductAdapter adapter;
     ArrayList<Product> products_in_sale;
     ArrayList<Product> my_products_in_sale;
+
 
     //Store the title bar of the view holder to change as needed
     private Toolbar app_toolbar;
@@ -119,6 +124,7 @@ public class Slidermenu extends AppCompatActivity
         //load_items_on_sale();
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -219,6 +225,16 @@ public class Slidermenu extends AppCompatActivity
 
         recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
 
+    }
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
     public void update_my_items(Map<String,Object> data){

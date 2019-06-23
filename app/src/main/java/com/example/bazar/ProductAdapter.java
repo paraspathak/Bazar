@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -73,6 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textview_product_title.setText(items.getTitle());
             textview_product_price.setText(items.getPrice());
             imageview_product_image.setImageBitmap(StringToBitMap(items.getImage_uri()));
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -84,7 +86,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     intent.putExtra("price",items.getPrice());
                     intent.putExtra("description",items.getShort_description());
                     intent.putExtra("description_long",items.getLong_description());
-                    intent.putExtra("image",items.getImage_uri());
+                    //intent.putExtra("image",items.getImage_uri());
+                    String filename = "image" + items.getTitle();
+                    String fileContents = items.getImage_uri();
+                    FileOutputStream outputStream;
+                    try {
+                        outputStream = v.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
+                        outputStream.write(fileContents.getBytes());
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    intent.putExtra("image",filename);
                     context.startActivity(intent);
                 }
             });

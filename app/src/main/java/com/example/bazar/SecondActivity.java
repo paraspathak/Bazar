@@ -7,12 +7,19 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
-import android.view.MenuItem;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class SecondActivity extends AppCompatActivity {
     ImageView image;
@@ -29,9 +36,6 @@ public class SecondActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         setContentView(R.layout.activity_second);
         buy = (Button) findViewById(R.id.Buy_Item_button);
@@ -51,7 +55,26 @@ public class SecondActivity extends AppCompatActivity {
             price.setText((price_of_item));
             description.setText(extras.getString("description_long"));
             description_short.setText(extras.getString("description"));
-            image.setImageBitmap(StringToBitMap(image_location));
+            File directory = getFilesDir();
+            StringBuilder total = new StringBuilder();
+            try {
+                File secondInputFile = new File(directory, image_location);
+                InputStream secondInputStream = new BufferedInputStream(new FileInputStream(secondInputFile));
+                BufferedReader r = new BufferedReader(new InputStreamReader(secondInputStream));
+                String line;
+                while ((line = r.readLine()) != null) {
+                    total.append(line);
+                }
+                r.close();
+                secondInputStream.close();
+                Log.d("File", "File contents: " + total);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String image_location_disk = total.toString();
+
+
+            image.setImageBitmap(StringToBitMap(image_location_disk));
 
         }
     }
