@@ -1,7 +1,5 @@
 package com.example.bazar;
 
-import android.net.Uri;
-
 public class Product {
     private String username, title, price, short_description, long_description, user_id, image_uri;
     public Product(String username, String title, String price, String short_description, String long_description, String image_url) {

@@ -8,39 +8,35 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class Buy_Screen extends AppCompatActivity {
-    TextView test, short_description, number_of_item, price_total, success_screen;
+    private TextView  price_total, success_screen;
     double price_of_item, current_total;
-    Product product;
-    private String image_location, title, short_des, long_des, price_item, product_id;
-    int quantity;
+    private Product product;
+    private String product_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy__screen);
-        test = (TextView) findViewById(R.id.title);
-        short_description = (TextView) findViewById(R.id.short_description_cart);
+
+        //Get items by their id
+        TextView test = (TextView) findViewById(R.id.title);
+        TextView short_description = (TextView) findViewById(R.id.short_description_cart);
         price_total = (TextView) findViewById(R.id.price_update);
+
+
         success_screen = (TextView) findViewById(R.id.Success_banner);
 
-        number_of_item = (TextView) findViewById(R.id.number_to_buy);
-        number_of_item.addTextChangedListener(new TextWatcher() {
+        TextView number_of_item = (TextView) findViewById(R.id.number_to_buy);
+        number_of_item.addTextChangedListener(new TextWatcher() {       //Add a Listener to watch and modify changes
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -56,9 +52,7 @@ public class Buy_Screen extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         Bundle extras = getIntent().getExtras();
@@ -66,79 +60,40 @@ public class Buy_Screen extends AppCompatActivity {
             //Get key passed from previous intent
             this.product_id = extras.getString("id");
 
-            //get the product Object
+            //get the product Object from singleton class
             this.product = ProductsDatabase.Get_product_with_key(product_id);
+
+            //Modify the screen with items
             test.setText(product.getTitle());
-            short_description.setText(short_des);
+            short_description.setText(product.getShort_description());
             price_of_item = Double.valueOf(product.getPrice());
-            price_total.setText((price_item));
+            price_total.setText((product.getPrice()));
             current_total=price_of_item;
             ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
             img.setImageBitmap(StringToBitMap(product.getImage_uri()));
-
-
-
-            /*
-            test.setText(extras.getString("title"));
-            short_des = extras.getString("description");
-            long_des = extras.getString("description_long");
-            short_description.setText(short_des);
-            price_item=extras.getString("price");
-            price_of_item = Double.valueOf(price_item);
-            price_total.setText((price_item));
-            current_total=price_of_item;
-            ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
-            image_location = extras.getString("image");
-            File directory = getFilesDir();
-            StringBuilder total = new StringBuilder();
-            try {
-                File secondInputFile = new File(directory, image_location);
-                InputStream secondInputStream = new BufferedInputStream(new FileInputStream(secondInputFile));
-                BufferedReader r = new BufferedReader(new InputStreamReader(secondInputStream));
-                String line;
-                while ((line = r.readLine()) != null) {
-                    total.append(line);
-                }
-                r.close();
-                secondInputStream.close();
-                Log.d("File", "File contents: " + total);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String image_location_disk = total.toString();
-
-
-            img.setImageBitmap(StringToBitMap(image_location_disk));
-            */
         }
-
-
-
-
     }
     public void add_to_cart(View view){
         //Delete the image file
-        success_screen.setText("Item successfully added");
+        Double quantity = this.current_total/this.price_of_item;
+        ProductsDatabase.add_to_cart(this.product,quantity);
+        Toast toast = Toast.makeText(getApplicationContext(),"Item Added to Cart",Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void buy_click(View view){
-        //Delete the image file
+        //Calculate number of items
+        Double quantity = this.current_total/this.price_of_item;
+
+        //Create a new intent and put ID of product in it and quantity
         Intent intent = new Intent(view.getContext(), Cart.class);
         intent.putExtra("id",this.product_id);
+        intent.putExtra("quantity",quantity);
 
-        /*
-        intent.putExtra("image",image_location);
-        intent.putExtra("title",title);
-        intent.putExtra("price",price_item);
-        intent.putExtra("description_short",short_des);
-        intent.putExtra("description_long",long_des);
-        */
-
-        ProductsDatabase.add_to_cart(new Product(" ",title,price_item,short_des,long_des,image_location));
+        ProductsDatabase.add_to_cart(this.product,quantity);
         ProductsDatabase.Add_product_with_key(this.product,this.product_id);
         view.getContext().startActivity(intent);
 
-        success_screen.setText("Start a new intent of buying item");
     }
     public Bitmap StringToBitMap(String encodedString){
         try {

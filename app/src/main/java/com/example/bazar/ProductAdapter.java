@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -44,12 +43,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder productViewHolder, int i) {
         Product item = products_list.get(i);
         productViewHolder.bind(item);
-        /*
-        productViewHolder.textview_product_title.setText(item.getProduct_title());
-        productViewHolder.textview_product_price.setText(String.valueOf(item.getProduct_price()));
-        productViewHolder.textview_product_description.setText(item.getProduct_description());
-        productViewHolder.imageview_product_image.setImageBitmap(BitmapFactory.decodeFile(item.getProduct_image_location()));
-        */
     }
 
     @Override
@@ -78,30 +71,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Listener is Working
-                    //textview_product_title.setText("Clicked");
                     Intent intent = new Intent(context, SecondActivity.class);
                     intent.putExtra("id_number",items.getUser_id());
                     ProductsDatabase.Add_product_with_key(items,items.getUser_id());
-                    /*
-                    intent.putExtra("title",items.getTitle());
-                    intent.putExtra("price",items.getPrice());
-                    intent.putExtra("description",items.getShort_description());
-                    intent.putExtra("description_long",items.getLong_description());
-                    //intent.putExtra("image",items.getImage_uri());
-                    String filename = "image" + items.getTitle();
-                    String fileContents = items.getImage_uri();
-                    FileOutputStream outputStream;
-                    try {
-                        outputStream = v.getContext().openFileOutput(filename, Context.MODE_PRIVATE);
-                        outputStream.write(fileContents.getBytes());
-                        outputStream.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    intent.putExtra("image",filename);
-
-                    */
                     context.startActivity(intent);
                 }
             });

@@ -3,23 +3,13 @@ package com.example.bazar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class SecondActivity extends AppCompatActivity {
     ImageView image;
@@ -50,35 +40,7 @@ public class SecondActivity extends AppCompatActivity {
             description_short.setText(product.getShort_description());
             description.setText(product.getLong_description());
             image.setImageBitmap(StringToBitMap(product.getImage_uri()));
-            /*
-            image_location=extras.getString("image");
-            price_of_item= extras.getString("price");
-            this.id_product = extras.getString("id_number");
-            name.setText(extras.getString("title"));
-            price.setText((price_of_item));
-            description.setText(extras.getString("description_long"));
-            description_short.setText(extras.getString("description"));
-            File directory = getFilesDir();
-            StringBuilder total = new StringBuilder();
-            try {
-                File secondInputFile = new File(directory, image_location);
-                InputStream secondInputStream = new BufferedInputStream(new FileInputStream(secondInputFile));
-                BufferedReader r = new BufferedReader(new InputStreamReader(secondInputStream));
-                String line;
-                while ((line = r.readLine()) != null) {
-                    total.append(line);
-                }
-                r.close();
-                secondInputStream.close();
-                Log.d("File", "File contents: " + total);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String image_location_disk = total.toString();
 
-
-            image.setImageBitmap(StringToBitMap(image_location_disk));
-            */
         }
     }
 
@@ -97,14 +59,6 @@ public class SecondActivity extends AppCompatActivity {
         Intent intent = new Intent(SecondActivity.this,Buy_Screen.class);
         intent.putExtra("id",this.id_product);
         ProductsDatabase.Add_product_with_key(this.product,this.id_product);
-
-        /*
-        intent.putExtra("title",name.getText());
-        intent.putExtra("price",price_of_item);
-        intent.putExtra("description",description_short.getText());
-        intent.putExtra("description_long",description.getText());
-        intent.putExtra("image",image_location);
-        */
         startActivity(intent);
 
     }

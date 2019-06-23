@@ -7,9 +7,12 @@ import java.util.HashMap;
 
 public class ProductsDatabase {
     private static final ProductsDatabase ourInstance = new ProductsDatabase();
+
+    private static ArrayList<Double> quantity_products_in_cart;
     private static ArrayList<Product> products_in_cart;
     private static Product selected_product;
     private static HashMap<String,Product> products_by_id;
+
 
     public static ProductsDatabase getInstance() {
         return ourInstance;
@@ -20,10 +23,20 @@ public class ProductsDatabase {
         products_in_cart = new ArrayList<>();
         products_in_sale = new ArrayList<>();
         products_by_id = new HashMap<String, Product>();
+        quantity_products_in_cart = new ArrayList<>();
     }
 
-    static  public void add_to_cart(Product product){
+    static public void add_to_cart(Product product, Double quantity){
         products_in_cart.add(product);
+        quantity_products_in_cart.add(quantity);
+    }
+
+    static public ArrayList<Product> items_in_cart(){
+        return products_in_cart;
+    }
+
+    static public ArrayList<Double> quantity_of_cart(){
+        return quantity_products_in_cart;
     }
 
     static public Product get_product(){
