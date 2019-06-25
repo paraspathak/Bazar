@@ -25,14 +25,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartAdapter.CartViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater layoutInflater = LayoutInflater.from(this.context);
+        LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View view = layoutInflater.inflate(R.layout.cart_layout,null);
         return new CartViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder cartViewHolder, int i) {
-        cartViewHolder.bind(this.cartItems.get(i));     //Delegate to sub class
+        CartItem c = cartItems.get(i);
+       // cartViewHolder.product_title.setText(c.get_title());
+        //cartViewHolder.product_quantity.setText(String.valueOf(c.get_price()));
+        cartViewHolder.bind(c);     //Delegate to sub class
     }
 
     @Override
@@ -41,9 +44,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     class CartViewHolder extends RecyclerView.ViewHolder{
-        private ImageView product_image;
-        private TextView product_title, product_price, product_quantity;
-        private Double price_of_item, quantity_item, total_price;
+        public ImageView product_image;
+        public TextView product_title, product_price, product_quantity;
+        public Double price_of_item, quantity_item, total_price;
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             product_image = (ImageView) itemView.findViewById(R.id.cart_image);
@@ -60,6 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             //Set the image
             product_image.setImageBitmap(ProductsDatabase.StringToBitMap(c.get_image_uri()));
             //Set Text Views
+            //product_title.setText(c.get_title());
             product_title.setText(c.get_title());
             //Set Total Price
             product_price.setText(String.valueOf(total_price));

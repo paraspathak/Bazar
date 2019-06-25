@@ -7,16 +7,17 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:id="@+id/cart_layout_card"
+        android:layout_width="401dp"
+        android:layout_height="178dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:id="@+id/cart_layout_card"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -39,13 +40,13 @@
             <TextView
                 android:id="@+id/cart_title"
                 android:layout_width="wrap_content"
-                android:textColor="@color/headlines"
                 android:layout_height="25dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Title"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,12 +57,12 @@
                 android:id="@+id/cart_price_of_item"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:textColor="@color/headlines"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text=" Price of item"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.875"
@@ -93,9 +94,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:textColor="@color/headlines"
                 android:layout_marginBottom="8dp"
                 android:text="Quantity"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.538"
@@ -107,13 +108,13 @@
                 android:id="@+id/cart_title4"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
-                android:textColor="@color/headlines"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_gravity="center"
                 android:text="Price"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.507"
@@ -130,9 +131,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:textColor="@color/headlines"
                 android:layout_marginBottom="8dp"
                 android:text="+"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.732"
@@ -149,9 +150,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:textColor="@color/headlines"
                 android:layout_marginBottom="8dp"
                 android:text="Delete"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.806"
@@ -163,7 +164,6 @@
                 android:id="@+id/cart_minus_button"
                 style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="39dp"
-                android:textColor="@color/headlines"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
@@ -171,6 +171,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="-"
+                android:textColor="@color/headlines"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.944"
@@ -180,10 +181,6 @@
 
 
         </android.support.constraint.ConstraintLayout>
-
-
-
-
 
 
     </android.support.v7.widget.CardView>

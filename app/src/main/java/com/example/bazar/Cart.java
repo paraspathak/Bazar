@@ -28,8 +28,9 @@ public class Cart extends AppCompatActivity  {
 
     RecyclerView display_items;
     private RecyclerView.LayoutManager layoutManager;
-
-
+    ArrayList<Product> cart;
+    ArrayList<Double> count;
+    ArrayList<CartItem> items_in_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +39,16 @@ public class Cart extends AppCompatActivity  {
 
         grand_total = (TextView) findViewById(R.id.cart_gt_entry);
         display_items = (RecyclerView) findViewById(R.id.recyclerView_cart);
-
+        items_in_cart = new ArrayList<>();
         //May need to change this to scale application
         //Done solely to increase performance
         display_items.setHasFixedSize(true);
 
         //Add a layout manager
         layoutManager = new LinearLayoutManager(this);
+        ((LinearLayoutManager) layoutManager).setOrientation(LinearLayoutManager.VERTICAL);
+        display_items.setLayoutManager(layoutManager);
+
 
         Button buy_all = (Button) findViewById(R.id.cart_buy_all);
         buy_all.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +67,24 @@ public class Cart extends AppCompatActivity  {
                 toast.show();
             }
             else {
-                Toast toast = Toast.makeText(getApplicationContext(),"This Works!!",Toast.LENGTH_LONG);
-                toast.show();
                 load_items_into_view();
             }
         }
+        cart = new ArrayList<>();
+        count = new ArrayList<>();
+        display_items.setAdapter(new CartAdapter(this, items_in_cart));
+        load_items_into_view();
     }
 
     private void load_items_into_view() {
-        ArrayList<Product> cart =  ProductsDatabase.items_in_cart();
-        ArrayList<Double> count = ProductsDatabase.quantity_of_cart();
-        ArrayList<CartItem> items_in_cart = new ArrayList<>();
+        cart =  ProductsDatabase.items_in_cart();
+        count = ProductsDatabase.quantity_of_cart();
+
         Double grand_ttl = 0.0;
+        if(cart.size()==0 || count.size()==0){
+            Toast toast = Toast.makeText(this, "Null",Toast.LENGTH_SHORT);
+            toast.show();
+        }
         for(int i =0; i<cart.size(); i++){
             double price = Double.valueOf(cart.get(i).getPrice()) * count.get(i);
             grand_ttl+=price;
@@ -82,7 +92,10 @@ public class Cart extends AppCompatActivity  {
         }
         grand_total.setText(String.valueOf(grand_ttl)); //Update the total amount       //Need to add a listener to listen to change in values
 
+        //display_items.setAdapter(new CartAdapter(this, items_in_cart));
         display_items.swapAdapter(new CartAdapter(this, items_in_cart),true);
+        Toast toast = Toast.makeText(getApplicationContext(),"This Works!!",Toast.LENGTH_LONG);
+        toast.show();
     }
 
 }
