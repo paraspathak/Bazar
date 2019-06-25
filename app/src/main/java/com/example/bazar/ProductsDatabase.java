@@ -1,5 +1,9 @@
 package com.example.bazar;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import com.example.bazar.Product;
 
 import java.util.ArrayList;
@@ -60,5 +64,17 @@ public class ProductsDatabase {
         products_by_id.remove(key);
         return temp;
     }
+
+    static public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
 
 }

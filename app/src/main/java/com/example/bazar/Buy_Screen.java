@@ -68,6 +68,8 @@ public class Buy_Screen extends AppCompatActivity {
             short_description.setText(product.getShort_description());
             price_of_item = Double.valueOf(product.getPrice());
             price_total.setText((product.getPrice()));
+            TextView long_des = (TextView) findViewById(R.id.long_description_cart);
+            long_des.setText(product.getLong_description());
             current_total=price_of_item;
             ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
             img.setImageBitmap(StringToBitMap(product.getImage_uri()));

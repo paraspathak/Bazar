@@ -93,12 +93,14 @@ public class Slidermenu extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference products = database.getReference("products");
 
+
         products.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map<String, Object> data = (Map<String, Object>)dataSnapshot.getValue();
                 if(data!=null){
-                    update_recycler_view(data);
+                    update_recycler_view(data);     //Call if theres anything changed in the database
                 }
                 else {
                     Toast toast = Toast.makeText(getApplicationContext(),"No Items Currently on Sale",Toast.LENGTH_LONG);
@@ -114,8 +116,6 @@ public class Slidermenu extends AppCompatActivity
         });
 
 
-
-        //load_items_on_sale();
 
     }
 
