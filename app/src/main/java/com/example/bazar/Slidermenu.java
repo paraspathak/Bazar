@@ -160,8 +160,11 @@ public class Slidermenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.Bid) {
-            //Load Bidding page
+        if (id == R.id.Cart) {
+            //Load Cart page
+
+            Intent intent = new Intent(getApplicationContext(),Cart.class);
+            startActivity(intent);
 
         } else if (id == R.id.AccountSettings) {
             Intent intent = new Intent(getApplicationContext(),AccountSettings.class);

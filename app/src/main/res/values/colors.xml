@@ -7,5 +7,6 @@
     <color name="headlines">#000000</color>
     <color name="background_button">#00cc44</color>
     <color name="dollar">#ff0000</color>
+    <color name="link">#20A8E7</color>
     <color name="buypage">#ffffff</color>
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,29 @@ public class MainActivity extends AppCompatActivity {
                 authenticate_user(Username.getText().toString(),Password.getText().toString());
             }
         });
+
+        TextView new_account = (TextView) findViewById(R.id.create_new_account);
+        new_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CreateUser.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+            String user = extras.getString("user");
+            if(user!=null){
+                Username.setText(user);
+            }
+            String pword = extras.getString("pword");
+            if(user!=null){
+                Password.setText(pword);
+            }
+        }
+
     }
 
     private void authenticate_user (String username, String password){

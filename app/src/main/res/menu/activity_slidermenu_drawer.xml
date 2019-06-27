@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="My items on sale" />
         <item
-            android:id="@+id/Bid"
+            android:id="@+id/Cart"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Bid" />
+            android:title="Cart" />
     </group>
 
     <item android:title="Account">
