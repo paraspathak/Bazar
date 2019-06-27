@@ -146,6 +146,8 @@ public class Slidermenu extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(getApplicationContext(),AccountSettings.class);
+            startActivity(intent);
             return true;
         }
 
@@ -162,6 +164,8 @@ public class Slidermenu extends AppCompatActivity
             //Load Bidding page
 
         } else if (id == R.id.AccountSettings) {
+            Intent intent = new Intent(getApplicationContext(),AccountSettings.class);
+            startActivity(intent);
 
         } else if (id == R.id.Finances) {
 
