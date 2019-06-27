@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Map;
 
 public class CreateUser extends AppCompatActivity {
-
+    TextView banner;
     EditText username, password;
     private FirebaseAuth mAuth;
     @Override
@@ -28,6 +29,7 @@ public class CreateUser extends AppCompatActivity {
         setContentView(R.layout.activity_create_user);
         username = (EditText) findViewById(R.id.new_user_username_entry);
         password = (EditText) findViewById(R.id.new_user_password_entry);
+        banner = (TextView) findViewById(R.id.add_user_progress);
 
         Button cancel = (Button) findViewById(R.id.new_user_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -45,36 +47,59 @@ public class CreateUser extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getApplicationContext(),"New User Created",Toast.LENGTH_SHORT);
-                toast.show();
                 String user = username.getText().toString();
                 String pword = password.getText().toString();
 
-                //Create a new User in database
-                mAuth.createUserWithEmailAndPassword(user,pword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-
+                if(validate_user_input(user,pword)){
+                    //Create a new User in database
+                    mAuth.createUserWithEmailAndPassword(user,pword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast toast = Toast.makeText(getApplicationContext(),"New User Created",Toast.LENGTH_SHORT);
+                                toast.show();
+                                start_activity();
+                            }
+                            else {
+                                Toast toast = Toast.makeText(getApplicationContext(),"New User Creation Failed",Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
                         }
-                        else {
-
-                        }
-                    }
-                });
+                    });
 
 
-
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                intent.putExtra("user",user);
-                intent.putExtra("pword",pword);
-
-                v.getContext().startActivity(intent);
-
-
+                }
             }
         });
 
 
     }
+
+    private void start_activity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user",username.getText().toString());
+        intent.putExtra("pword",password.getText().toString());
+        startActivity(intent);
+    }
+
+    private boolean validate_user_input(String uname, String pass){
+        int count =0;
+        if(uname.contains("@") && uname.contains(".")){
+            count +=1;
+        }
+        else {
+            banner.setText("Not an email");
+        }
+        if(pass.length()>6){
+            count+=1;
+        }
+        else {
+            banner.setText("password must be at least 6 characters long");
+        }
+        if(count==2) return true;
+        else return false;
+
+    }
+
+
 }
