@@ -17,10 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Cart"></activity>
+        <activity android:name=".AccountSettings"></activity>
+        <activity android:name=".Cart" />
         <activity
             android:name=".AddProductforSale"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".Buy_Screen" />
         <activity
             android:name=".Slidermenu"
