@@ -19,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -179,8 +181,13 @@ public class Slidermenu extends AppCompatActivity
         } else if (id == R.id.MySale) {
             //Connect with server and get all items currently on sale sold by me
             //recyclerView.swapAdapter(new ProductAdapter(this, Communicate_with_server.get_my_items_on_sale()),true);
+
+            //Set the id of product in user's database too
+            FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+            String user_id = current_user.getUid();
+
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference products = database.getReference("myproducts");
+            DatabaseReference products = database.getReference("users").child(user_id).child("myproducts");
 
             products.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -238,6 +245,7 @@ public class Slidermenu extends AppCompatActivity
     }
 
     public void update_my_items(Map<String,Object> data){
+        this.my_products_in_sale.clear();
         for(Map.Entry<String,Object> entry:data.entrySet()){
             Map singleProduct = (Map) entry.getValue();
             this.my_products_in_sale.add(new Product(
