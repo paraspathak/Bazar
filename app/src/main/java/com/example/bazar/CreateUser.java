@@ -16,7 +16,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class CreateUser extends AppCompatActivity {
@@ -47,7 +50,7 @@ public class CreateUser extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String user = username.getText().toString();
+                final String user = username.getText().toString();
                 String pword = password.getText().toString();
 
                 if(validate_user_input(user,pword)){
@@ -58,6 +61,14 @@ public class CreateUser extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast toast = Toast.makeText(getApplicationContext(),"New User Created",Toast.LENGTH_SHORT);
                                 toast.show();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference users_database = database.getReference("users");
+                                Map<String, String> userData = new HashMap<String, String>();
+                                FirebaseUser user_current = FirebaseAuth.getInstance().getCurrentUser();
+                                if(user_current!=null){
+                                    userData.put("email",user);
+                                    users_database.child(user_current.getUid()).setValue(userData);
+                                }
                                 start_activity();
                             }
                             else {

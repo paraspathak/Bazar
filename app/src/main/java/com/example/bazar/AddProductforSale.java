@@ -129,9 +129,12 @@ public class AddProductforSale extends AppCompatActivity {
             }
         }
     }
-    public String BitMapToString(Bitmap bitmap){
+    public String BitMapToString(Bitmap bit){
+        //Reduce the size to 200x200
+        Bitmap bitmap = Bitmap.createScaledBitmap(bit,200,200, false);
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,80, baos);
+        //Compress the bitmap
+        bitmap.compress(Bitmap.CompressFormat.PNG,50, baos);
         byte [] b=baos.toByteArray();
         String temp= Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
