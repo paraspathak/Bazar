@@ -24,29 +24,26 @@
             android:id="@+id/settings_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="244dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="184dp"
+            android:layout_marginTop="40dp"
             android:text="Username here"
             android:textColor="@color/headlines"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.062" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/settings_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="244dp"
+            android:layout_marginStart="184dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Password here"
+            android:text="Click show to view"
             android:textColor="@color/headlines"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.174" />
+            app:layout_constraintVertical_bias="0.173" />
 
         <TextView
             android:id="@+id/textView5"
@@ -90,14 +87,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Password"
+            android:text="Your account Number"
             android:textColor="@color/headlines"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.227"
+            app:layout_constraintHorizontal_bias="0.079"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.174" />
+            app:layout_constraintVertical_bias="0.173" />
 
         <TextView
             android:id="@+id/textView6"
@@ -111,10 +108,10 @@
             android:textColor="@color/headlines"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.227"
+            app:layout_constraintHorizontal_bias="0.301"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.062" />
+            app:layout_constraintVertical_bias="0.061" />
 
         <Switch
             android:id="@+id/settings_theme"
