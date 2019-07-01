@@ -1,7 +1,10 @@
 package com.example.bazar;
 
-public class Product {
+
+public class Product{
     private String username, title, price, short_description, long_description, user_id, image_uri;
+    private int mData;
+
     public Product(String username, String title, String price, String short_description, String long_description, String image_url) {
         super();
         this.username = username;
@@ -66,4 +69,5 @@ public class Product {
     public void setImage_uri(String image_uri) {
         this.image_uri = image_uri;
     }
+
 }

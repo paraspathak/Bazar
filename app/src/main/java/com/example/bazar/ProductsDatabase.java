@@ -6,6 +6,7 @@ import android.util.Base64;
 
 import com.example.bazar.Product;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,6 +75,17 @@ public class ProductsDatabase {
             e.getMessage();
             return null;
         }
+    }
+
+    static public String BitMapToString(Bitmap bit){
+        //Reduce the size to 200x200
+        Bitmap bitmap = Bitmap.createScaledBitmap(bit,200,200, false);
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        //Compress the bitmap
+        bitmap.compress(Bitmap.CompressFormat.PNG,50, baos);
+        byte [] b=baos.toByteArray();
+        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
     }
 
 
