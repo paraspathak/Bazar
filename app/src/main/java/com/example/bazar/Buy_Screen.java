@@ -9,16 +9,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class Buy_Screen extends AppCompatActivity {
+import java.util.HashMap;
+
+
+public class Buy_Screen extends AppCompatActivity implements View.OnClickListener {
     private TextView  price_total, success_screen;
     double price_of_item, current_total;
     private Product product;
-    private String product_id;
+    private String product_id, title_of_product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +66,18 @@ public class Buy_Screen extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             //Get key passed from previous intent
-            this.product_id = extras.getString("id");
+            this.product_id = extras.getString("id_number");
+
 
             //get the product Object from singleton class
             this.product = ProductsDatabase.Get_product_with_key(product_id);
+            //this.product_id= product.getUser_id();
 
+            this.title_of_product = product.getTitle();
             //Modify the screen with items
-            test.setText(product.getTitle());
+            //test.setText(product.getTitle());
+
+            test.setText(title_of_product);
             short_description.setText(product.getShort_description());
             price_of_item = Double.valueOf(product.getPrice());
             price_total.setText((product.getPrice()));
@@ -73,29 +86,11 @@ public class Buy_Screen extends AppCompatActivity {
             current_total=price_of_item;
             ImageView img = (ImageView) findViewById(R.id.activity_buy_image);
             img.setImageBitmap(StringToBitMap(product.getImage_uri()));
+            Button add_to_cart = (Button) findViewById(R.id.add_to_cart_button);
+            Button buy_click = (Button) findViewById(R.id.item_buy_button_cart);
+            add_to_cart.setOnClickListener(this);
+            buy_click.setOnClickListener(this);
         }
-    }
-    public void add_to_cart(View view){
-        //Delete the image file
-        Double quantity = this.current_total/this.price_of_item;
-        ProductsDatabase.add_to_cart(this.product,quantity);
-        Toast toast = Toast.makeText(getApplicationContext(),"Item Added to Cart",Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void buy_click(View view){
-        //Calculate number of items
-        Double quantity = this.current_total/this.price_of_item;
-
-        //Create a new intent and put ID of product in it and quantity
-        Intent intent = new Intent(view.getContext(), Cart.class);
-        intent.putExtra("id",this.product_id);
-        intent.putExtra("quantity",quantity);
-
-        ProductsDatabase.add_to_cart(this.product,quantity);
-        ProductsDatabase.Add_product_with_key(this.product,this.product_id);
-        view.getContext().startActivity(intent);
-
     }
     public Bitmap StringToBitMap(String encodedString){
         try {
@@ -108,4 +103,94 @@ public class Buy_Screen extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+
+        if(id == R.id.add_to_cart_button)
+        {
+            Double quantity = current_total / price_of_item;
+
+
+            //Get the current user id
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String user_id = user.getUid();
+
+            //open the record in the database of the user
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            if(product.getUser_id()==null){
+                DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child("123");
+
+                //Create a new map for putting data
+                HashMap<String, String> data = new HashMap<>();
+                data.put("id", product_id);
+                data.put("name", title_of_product);
+                data.put("quantity", String.valueOf(quantity));
+
+                //Add to the server
+                my_cart.setValue(data);
+
+
+                ProductsDatabase.add_to_cart(product, quantity);
+
+            }
+            else {
+                DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child(product.getUser_id());
+
+                //Create a new map for putting data
+                HashMap<String, String> data = new HashMap<>();
+                data.put("id", product_id);
+                data.put("name", title_of_product);
+                data.put("quantity", String.valueOf(quantity));
+
+                //Add to the server
+                my_cart.setValue(data);
+
+
+                ProductsDatabase.add_to_cart(product, quantity);
+
+            }
+            Toast toast = Toast.makeText(getApplicationContext(), "Item Added to Cart", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else if (id == R.id.item_buy_button_cart){
+            //Calculate number of items
+            Double quantity = current_total/price_of_item;
+
+            //Get the current user id
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String user_id =  user.getUid();
+
+            //open the record in the database of the user
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+            DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child(product_id);
+
+            //Create a new map for putting data
+            HashMap<String, String> data = new HashMap<>();
+            data.put("id",product_id);
+            data.put("name", product.getTitle());
+            data.put("quantity",String.valueOf(quantity));
+
+            //Add to the server
+            my_cart.setValue(data);
+
+
+            //Create a new intent and put ID of product in it and quantity
+            Intent intent = new Intent(v.getContext(), Cart.class);
+            intent.putExtra("id_number",product_id);
+            intent.putExtra("quantity",quantity);
+
+            ProductsDatabase.add_to_cart(product,quantity);
+            ProductsDatabase.Add_product_with_key(product,product_id);
+            v.getContext().startActivity(intent);
+
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 }

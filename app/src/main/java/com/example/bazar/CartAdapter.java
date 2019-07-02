@@ -1,6 +1,7 @@
 package com.example.bazar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder cartViewHolder, int i) {
         CartItem c = cartItems.get(i);
-       // cartViewHolder.product_title.setText(c.get_title());
+        if(c.getBackup_title()==null){
+            cartViewHolder.product_title.setText("Hello World");
+        }
+        else {
+            cartViewHolder.product_title.setText(c.getBackup_title());
+        }
+
         //cartViewHolder.product_quantity.setText(String.valueOf(c.get_price()));
         cartViewHolder.bind(c);     //Delegate to sub class
     }
@@ -50,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             product_image = (ImageView) itemView.findViewById(R.id.cart_image);
-            product_title = (TextView) itemView.findViewById(R.id.cart_title);
+            product_title = (TextView) itemView.findViewById(R.id.cart_title_entry);
             product_price = (TextView) itemView.findViewById(R.id.cart_price_of_item);
             product_quantity = (TextView) itemView.findViewById(R.id.cart_number_item);
 
@@ -64,7 +71,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             product_image.setImageBitmap(ProductsDatabase.StringToBitMap(c.get_image_uri()));
             //Set Text Views
             //product_title.setText(c.get_title());
-            product_title.setText(c.get_title());
+            //product_title.setText(c.getBackup_title());
+
             //Set Total Price
             product_price.setText(String.valueOf(total_price));
             //Set Quantity

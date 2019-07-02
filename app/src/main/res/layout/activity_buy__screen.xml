@@ -33,10 +33,9 @@
         app:layout_constraintVertical_bias="1.0">
 
         <Button
-            android:id="@+id/item_buy_button2"
+            android:id="@+id/item_buy_button_cart"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:onClick="buy_click"
             android:text="Buy"
             app:layout_column="1"
             app:layout_row="5" />
@@ -71,7 +70,6 @@
             android:id="@+id/add_to_cart_button"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:onClick="add_to_cart"
             android:text="Add to Cart"
             app:layout_column="0"
             app:layout_row="5" />

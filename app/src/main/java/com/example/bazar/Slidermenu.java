@@ -218,10 +218,6 @@ public class Slidermenu extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    //Deletes elements from the recycler view
-    public void remove_all_elements(){
-
-    }
     public void load_items_on_sale(){
         recyclerView.swapAdapter(new ProductAdapter(this, products_in_sale),true);
     }

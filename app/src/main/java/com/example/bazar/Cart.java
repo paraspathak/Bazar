@@ -1,5 +1,7 @@
 package com.example.bazar;
 
+import android.content.Intent;
+import android.graphics.YuvImage;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,15 +61,12 @@ public class Cart extends AppCompatActivity  {
         });
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
-            id_number = extras.getString("id");
-            this.product = ProductsDatabase.get_product();
+            id_number = extras.getString("id_number");
+            this.product =  ProductsDatabase.Get_product_with_key(id_number);
 
             if(product==null){
                 Toast toast = Toast.makeText(getApplicationContext(),"Null",Toast.LENGTH_LONG);
                 toast.show();
-            }
-            else {
-                load_items_into_view();
             }
         }
         cart = new ArrayList<>();
@@ -88,14 +87,15 @@ public class Cart extends AppCompatActivity  {
         for(int i =0; i<cart.size(); i++){
             double price = Double.valueOf(cart.get(i).getPrice()) * count.get(i);
             grand_ttl+=price;
-            items_in_cart.add(new CartItem(cart.get(i),count.get(i)));
+            if(cart.get(i).getTitle()==null){
+                Toast toast = Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT);
+            }
+            items_in_cart.add(new CartItem(cart.get(i),count.get(i), cart.get(i).getTitle()));
         }
         grand_total.setText(String.valueOf(grand_ttl)); //Update the total amount       //Need to add a listener to listen to change in values
 
         //display_items.setAdapter(new CartAdapter(this, items_in_cart));
         display_items.swapAdapter(new CartAdapter(this, items_in_cart),true);
-        Toast toast = Toast.makeText(getApplicationContext(),"This Works!!",Toast.LENGTH_LONG);
-        toast.show();
     }
 
 }
