@@ -66,18 +66,21 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
             //Get key passed from previous intent
-            this.product_id = extras.getString("id_number");
+
 
 
             //get the product Object from singleton class
             this.product = ProductsDatabase.Get_product_with_key(product_id);
             //this.product_id= product.getUser_id();
-
+            this.product_id = product.getUsername();
             this.title_of_product = product.getTitle();
             //Modify the screen with items
             //test.setText(product.getTitle());
 
             test.setText(title_of_product);
+            ProductsDatabase.setLast_name(title_of_product);
+            ProductsDatabase.setLast_id(product.getUser_id());
+
             short_description.setText(product.getShort_description());
             price_of_item = Double.valueOf(product.getPrice());
             price_total.setText((product.getPrice()));
@@ -90,6 +93,7 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
             Button buy_click = (Button) findViewById(R.id.item_buy_button_cart);
             add_to_cart.setOnClickListener(this);
             buy_click.setOnClickListener(this);
+
         }
     }
     public Bitmap StringToBitMap(String encodedString){
@@ -112,20 +116,19 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
         {
             Double quantity = current_total / price_of_item;
 
-
             //Get the current user id
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String user_id = user.getUid();
 
             //open the record in the database of the user
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            if(product.getUser_id()==null){
+            if(product_id==null){
                 DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child("123");
 
                 //Create a new map for putting data
                 HashMap<String, String> data = new HashMap<>();
-                data.put("id", product_id);
-                data.put("name", title_of_product);
+                data.put("id", "exception");
+                data.put("name", "Bazar");
                 data.put("quantity", String.valueOf(quantity));
 
                 //Add to the server
@@ -136,7 +139,7 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
 
             }
             else {
-                DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child(product.getUser_id());
+                DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child(product_id);
 
                 //Create a new map for putting data
                 HashMap<String, String> data = new HashMap<>();
@@ -167,15 +170,20 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
 
             DatabaseReference my_cart = database.getReference("users").child(user_id).child("cart").child(product_id);
 
-            //Create a new map for putting data
-            HashMap<String, String> data = new HashMap<>();
-            data.put("id",product_id);
-            data.put("name", product.getTitle());
-            data.put("quantity",String.valueOf(quantity));
+            if(product_id!=null){
+                //Create a new map for putting data
+                HashMap<String, String> data = new HashMap<>();
+                data.put("id", product_id);
+                data.put("name", title_of_product);
+                data.put("quantity", String.valueOf(quantity));
 
-            //Add to the server
-            my_cart.setValue(data);
+                //Add to the server
+                my_cart.setValue(data);
 
+
+                ProductsDatabase.add_to_cart(product, quantity);
+
+            }
 
             //Create a new intent and put ID of product in it and quantity
             Intent intent = new Intent(v.getContext(), Cart.class);
@@ -184,6 +192,7 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
 
             ProductsDatabase.add_to_cart(product,quantity);
             ProductsDatabase.Add_product_with_key(product,product_id);
+
             v.getContext().startActivity(intent);
 
         }

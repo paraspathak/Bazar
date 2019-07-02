@@ -5,10 +5,10 @@ public class Product{
     private String username, title, price, short_description, long_description, user_id, image_uri;
     private int mData;
 
-    public Product(String username, String title, String price, String short_description, String long_description, String image_url) {
+    public Product(String username, String title_, String price, String short_description, String long_description, String image_url) {
         super();
         this.username = username;
-        this.title = title;
+        this.title = title_;
         this.image_uri = image_url;
         this.price = price;
         this.short_description = short_description;

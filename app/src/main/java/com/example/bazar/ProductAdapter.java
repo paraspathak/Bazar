@@ -72,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, Buy_Screen.class);
+                    intent.putExtra("title", items.getTitle());
                     intent.putExtra("id_number",items.getUser_id());
                     ProductsDatabase.Add_product_with_key(items,items.getUser_id());
                     context.startActivity(intent);

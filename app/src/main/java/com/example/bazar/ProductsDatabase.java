@@ -17,12 +17,12 @@ public class ProductsDatabase {
     private static ArrayList<Product> products_in_cart;
     private static Product selected_product;
     private static HashMap<String,Product> products_by_id;
-
+    private static String last_name, last_id;
+    private ArrayList<Product> products_in_sale;
 
     public static ProductsDatabase getInstance() {
         return ourInstance;
     }
-    private ArrayList<Product> products_in_sale;
 
     private ProductsDatabase() {
         products_in_cart = new ArrayList<>();
@@ -34,6 +34,22 @@ public class ProductsDatabase {
     static public void add_to_cart(Product product, Double quantity){
         products_in_cart.add(product);
         quantity_products_in_cart.add(quantity);
+    }
+
+    static public String getLast_name(){
+        return last_name;
+    }
+
+    public static void setLast_name(String last_name) {
+        ProductsDatabase.last_name = last_name;
+    }
+
+    public static void setLast_id(String last_id) {
+        ProductsDatabase.last_id = last_id;
+    }
+
+    public static String getLast_id() {
+        return last_id;
     }
 
     static public ArrayList<Product> items_in_cart(){
