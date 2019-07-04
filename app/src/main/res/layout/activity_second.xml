@@ -15,111 +15,77 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
         android:background="@color/buypage"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.628">
 
-        <ImageView
-            android:id="@+id/ProductImage"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/stored_credit_card"
             android:layout_width="match_parent"
-            android:layout_height="224dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:paddingTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.038"
-            app:srcCompat="@drawable/logo" />
+            android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/ProductName"
-            android:textSize="20sp"
-            android:textColor="@color/headlines"
+            android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Items Name"
+            android:text="Select Credit/Debit Card"
+            android:textColor="@color/headlines"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ProductImage"
             app:layout_constraintVertical_bias="0.086" />
 
         <TextView
-            android:id="@+id/PriceItem"
+            android:id="@+id/credit_card_price"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:textSize="15sp"
-            android:textColor="@color/headlines"
             android:text="Price"
+            android:textColor="@color/headlines"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ProductImage"
             app:layout_constraintVertical_bias="0.247" />
 
         <Button
-            android:id="@+id/Buy_Item_button"
+            android:id="@+id/payment_buy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="load_buy_view"
             android:background="@color/background_button"
             android:text="Buy" />
 
-        <TextView
-            android:id="@+id/short_description"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/add_credit_card"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:textSize="15sp"
-            android:textColor="@color/headlines"
-            android:text="Description of Items on sale"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ProductImage"
-            app:layout_constraintVertical_bias="0.634" />
+            android:text="Add New Payment Method" />
 
         <TextView
-            android:id="@+id/Description"
-            android:textSize="15sp"
-            android:textColor="@color/headlines"
-            android:layout_width="360dp"
-            android:layout_height="215dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Description of Items on sale"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.485"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ProductImage"
-            app:layout_constraintVertical_bias="0.634" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter your address to ship"
+            android:textColor="@color/headlines"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/address_field"
+            android:layout_height="wrap_content"
+            android:hint="Please enter your adddress here"/>
 
     </LinearLayout>
 

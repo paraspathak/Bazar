@@ -76,6 +76,10 @@ public class ProductsDatabase {
         products_by_id.put(key,product);
     }
 
+    static public void empty_cart(){
+        products_in_cart.clear();
+    }
+
     static public Product Get_product_with_key(String key){
         Product temp = products_by_id.get(key);
         products_by_id.remove(key);
