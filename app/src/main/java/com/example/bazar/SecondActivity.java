@@ -48,6 +48,34 @@ public class SecondActivity extends AppCompatActivity {
         });
 
         new_payment_method = (Button) findViewById(R.id.add_credit_card);
+        new_payment_method.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Make fields visible
+                EditText card_number = (EditText) v.findViewById(R.id.credit_card_number);
+                card_number.setVisibility(View.VISIBLE);
+                EditText expiry = (EditText) v.findViewById(R.id.date_expiry);
+                expiry.setVisibility(View.VISIBLE);
+                EditText ccv = (EditText) v.findViewById(R.id.ccv_number);
+                ccv.setVisibility(View.VISIBLE);
+
+                //Make other items invisible
+
+
+
+                //Get text on accept click
+                if(!(card_number.getText().equals("") || expiry.getText().equals("") || ccv.getText().equals("") )){
+                    //<TODO> Add the items to the database which links in the recycler view of payment screen
+                    Toast toast = Toast.makeText(getApplicationContext(), "Payment Field added", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Empty Fields!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
 
 
     }

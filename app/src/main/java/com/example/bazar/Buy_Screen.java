@@ -181,7 +181,7 @@ public class Buy_Screen extends AppCompatActivity implements View.OnClickListene
                 my_cart.setValue(data);
 
 
-                ProductsDatabase.add_to_cart(product, quantity);
+                //ProductsDatabase.add_to_cart(product, quantity);
 
             }
 
