@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".add_credit_card">
+
+    <include
+        android:id="@+id/include6"
+        layout="@layout/toolbar_with_slidermenu" />
+
+    <LinearLayout
+        android:layout_width="395dp"
+        android:layout_height="659dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include6"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/info_card_asker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter credit card number" />
+
+        <EditText
+            android:id="@+id/add_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/headlines"
+                android:text="Please enter CCV number"/>
+
+            <EditText
+                android:id="@+id/add_card_ccv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CCV number" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please enter Date of expiry"
+                android:textColor="@color/headlines" />
+
+            <EditText
+                android:id="@+id/add_card_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="mm/yy"
+                android:inputType="date" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/info_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/headlines"
+            android:text="Please enter your address" />
+
+        <EditText
+            android:id="@+id/add_card_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPostalAddress" />
+
+        <Button
+            android:id="@+id/add_card_button"
+            style="@android:style/TextAppearance.Holo.DialogWindowTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="003F8385"
+            android:text="Add Card" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

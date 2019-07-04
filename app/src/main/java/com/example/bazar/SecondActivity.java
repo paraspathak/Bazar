@@ -52,85 +52,9 @@ public class SecondActivity extends AppCompatActivity {
         new_payment_method.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Make fields visible
-                EditText card_number = (EditText) v.findViewById(R.id.credit_card_number);
-                card_number.setVisibility(View.VISIBLE);
-                EditText expiry = (EditText) v.findViewById(R.id.date_expiry);
-                expiry.setVisibility(View.VISIBLE);
-                EditText ccv = (EditText) v.findViewById(R.id.ccv_number);
-                ccv.setVisibility(View.VISIBLE);
-                Button add = (Button) v.findViewById(R.id.add_credit_card);
-                add.setVisibility(View.VISIBLE);
-                Button cancel = (Button) v.findViewById(R.id.cancel_card);
-                cancel.setVisibility(View.VISIBLE);
-
-
-                //Make other items invisible
-                TextView info = (TextView) v.findViewById(R.id.info);
-                info.setVisibility(View.INVISIBLE);
-                price_dislpay.setVisibility(View.INVISIBLE);
-                buy_button.setVisibility(View.INVISIBLE);
-                new_payment_method.setVisibility(View.INVISIBLE);
-                cards.setVisibility(View.INVISIBLE);
-
-                add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Get text on accept click
-                        EditText card_number = (EditText) v.findViewById(R.id.credit_card_number);
-                        EditText expiry = (EditText) v.findViewById(R.id.date_expiry);
-                        EditText ccv = (EditText) v.findViewById(R.id.ccv_number);
-                        if(!(card_number.getText().equals("") || expiry.getText().equals("") || ccv.getText().equals("") )){
-                            //<TODO> Add the items to the database which links in the recycler view of payment screen
-                            Toast toast = Toast.makeText(getApplicationContext(), "Payment Field added", Toast.LENGTH_SHORT);
-                            toast.show();
-
-                            //Make them invisible
-                            card_number.setVisibility(View.INVISIBLE);
-                            expiry.setVisibility(View.INVISIBLE);
-                            ccv.setVisibility(View.INVISIBLE);
-
-                            //Make every other thing visible
-                            TextView info = (TextView) v.findViewById(R.id.info);
-                            info.setVisibility(View.VISIBLE);
-                            price_dislpay.setVisibility(View.VISIBLE);
-                            buy_button.setVisibility(View.VISIBLE);
-                            new_payment_method.setVisibility(View.VISIBLE);
-                            cards.setVisibility(View.VISIBLE);
-
-
-                        }
-                        else {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Empty Fields!", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    }
-                });
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        EditText card_number = (EditText) v.findViewById(R.id.credit_card_number);
-                        EditText expiry = (EditText) v.findViewById(R.id.date_expiry);
-                        EditText ccv = (EditText) v.findViewById(R.id.ccv_number);
-
-                        //Make them invisible
-                        card_number.setVisibility(View.INVISIBLE);
-                        expiry.setVisibility(View.INVISIBLE);
-                        ccv.setVisibility(View.INVISIBLE);
-
-                        //Make every other thing visible
-                        TextView info = (TextView) v.findViewById(R.id.info);
-                        info.setVisibility(View.VISIBLE);
-                        price_dislpay.setVisibility(View.VISIBLE);
-                        buy_button.setVisibility(View.VISIBLE);
-                        new_payment_method.setVisibility(View.VISIBLE);
-                        cards.setVisibility(View.VISIBLE);
-
-
-                    }
-                });
+                //Start the screen to add credit card information
+                Intent intent = new Intent(v.getContext(), add_credit_card.class);
+                v.getContext().startActivity(intent);
             }
         });
 
