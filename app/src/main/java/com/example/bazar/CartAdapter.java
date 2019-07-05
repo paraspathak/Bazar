@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder cartViewHolder, int i) {
+    public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder cartViewHolder, final int i) {
         CartItem c = cartItems.get(i);
         if(c.getBackup_title()==null){
             cartViewHolder.product_title.setText("Hello World");
@@ -40,7 +41,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         else {
             cartViewHolder.product_title.setText(c.getBackup_title());
         }
-
+        cartViewHolder.delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartItems.remove(i);
+                notifyItemRemoved(i);
+            }
+        });
         //cartViewHolder.product_quantity.setText(String.valueOf(c.get_price()));
         cartViewHolder.bind(c);     //Delegate to sub class
     }
@@ -54,12 +61,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public ImageView product_image;
         public TextView product_title, product_price, product_quantity;
         public Double price_of_item, quantity_item, total_price;
+        public Button delete_button;
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             product_image = (ImageView) itemView.findViewById(R.id.cart_image);
             product_title = (TextView) itemView.findViewById(R.id.cart_title_entry);
             product_price = (TextView) itemView.findViewById(R.id.cart_price_of_item);
             product_quantity = (TextView) itemView.findViewById(R.id.cart_number_item);
+            delete_button = (Button) itemView.findViewById(R.id.cart_delete_button);
 
         }
 
@@ -72,6 +81,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             //Set Text Views
             //product_title.setText(c.get_title());
             //product_title.setText(c.getBackup_title());
+
 
             //Set Total Price
             product_price.setText(String.valueOf(total_price));

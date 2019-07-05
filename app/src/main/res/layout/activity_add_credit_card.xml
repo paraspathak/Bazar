@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:windowSoftInputMode="adjustPan|adjustResize"
     android:layout_height="match_parent"
     tools:context=".add_credit_card">
 
@@ -11,16 +12,17 @@
         layout="@layout/toolbar_with_slidermenu" />
 
     <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="659dp"
+        android:layout_width="399dp"
+        android:layout_height="475dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/include6"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.32">
 
         <TextView
             android:id="@+id/info_card_asker"
@@ -33,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:inputType="number" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,14 +45,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/headlines"
-                android:text="Please enter CCV number"/>
+                android:text="Please enter CCV number"
+                android:textColor="@color/headlines" />
 
             <EditText
                 android:id="@+id/add_card_ccv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="CCV number" />
+                android:hint="CCV number"
+                android:inputType="number" />
 
         </LinearLayout>
 
@@ -83,22 +85,24 @@
             android:id="@+id/info_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/headlines"
-            android:text="Please enter your address" />
+            android:text="Please enter your address"
+            android:textColor="@color/headlines" />
 
         <EditText
             android:id="@+id/add_card_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress" />
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/add_card_button"
             style="@android:style/TextAppearance.Holo.DialogWindowTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="003F8385"
+
             android:text="Add Card" />
 
     </LinearLayout>

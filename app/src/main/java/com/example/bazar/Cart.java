@@ -37,6 +37,7 @@ public class Cart extends AppCompatActivity  {
     String id_number;
     Product product;
     TextView grand_total;
+    Double grand_ttl;
 
     RecyclerView display_items;
     private RecyclerView.LayoutManager layoutManager;
@@ -48,7 +49,7 @@ public class Cart extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        grand_ttl = 0.0;
         grand_total = (TextView) findViewById(R.id.cart_gt_entry);
         display_items = (RecyclerView) findViewById(R.id.recyclerView_cart);
         items_in_cart = new ArrayList<>();
@@ -131,7 +132,7 @@ public class Cart extends AppCompatActivity  {
         cart =  ProductsDatabase.items_in_cart();
         count = ProductsDatabase.quantity_of_cart();
 
-        Double grand_ttl = 0.0;
+
         if(cart.size()==0 || count.size()==0){
             Toast toast = Toast.makeText(this, "Null",Toast.LENGTH_SHORT);
             toast.show();
@@ -148,6 +149,25 @@ public class Cart extends AppCompatActivity  {
 
         //display_items.setAdapter(new CartAdapter(this, items_in_cart));
         display_items.swapAdapter(new CartAdapter(this, items_in_cart),true);
+        display_items.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                //Update the grand total
+                TextView p = (TextView) view.findViewById(R.id.cart_price_of_item);
+                String pr = p.getText().toString();
+                grand_ttl+=Double.valueOf(pr);
+                grand_total.setText(String.valueOf(grand_ttl));
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+                //deduct the grand total
+                TextView p = (TextView) view.findViewById(R.id.cart_price_of_item);
+                String pr = p.getText().toString();
+                grand_ttl-=Double.valueOf(pr);
+                grand_total.setText(String.valueOf(grand_ttl));
+            }
+        });
     }
 
 }
