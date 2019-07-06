@@ -68,6 +68,7 @@ public class Cart extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SecondActivity.class);
+                intent.putExtra("total",grand_ttl);
                 v.getContext().startActivity(intent);           //Go to the payment screen
             }
         });

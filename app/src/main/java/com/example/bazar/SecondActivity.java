@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
-    private TextView price_dislpay ;
+    private TextView price_dislpay, info_card ;
     private Button buy_button, new_payment_method;
     private EditText address_field;
     private RecyclerView cards;
@@ -41,7 +41,14 @@ public class SecondActivity extends AppCompatActivity {
         price_dislpay = (TextView) findViewById(R.id.credit_card_price);
         cards = (RecyclerView) findViewById(R.id.stored_credit_card);
         buy_button = (Button) findViewById(R.id.payment_buy);
+        info_card = (TextView) findViewById(R.id.info_cards_display);
 
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null){
+         Double price = extras.getDouble("total");
+         price_dislpay.setText(String.valueOf(price));
+        }
 
         card_number = new ArrayList<>();
         card_expiry = new ArrayList<>();
@@ -59,10 +66,12 @@ public class SecondActivity extends AppCompatActivity {
                     DatabaseReference my_cart = database.getReference("users").child(id).child("cart");
                     my_cart.removeValue();  //Remove cart element in it
                     ProductsDatabase.empty_cart();  //Remove local data too
-
                     Toast toast = Toast.makeText(v.getContext(),"Items bought!!",Toast.LENGTH_SHORT);
                     toast.show();
                     buy_button.setEnabled(false);   //Disable the button
+
+                    Intent intent = new Intent(v.getContext(),Slidermenu.class);
+                    v.getContext().startActivity(intent);
                 }
 
             }
@@ -116,6 +125,6 @@ public class SecondActivity extends AppCompatActivity {
             card_number.add((String)single_item.get("number"));
             card_expiry.add((String)single_item.get("expiry"));
         }
-        cards.setAdapter(new CreditCardAdapter(card_number,card_expiry));
+        cards.setAdapter(new CreditCardAdapter(card_number,card_expiry,info_card));
     }
 }
