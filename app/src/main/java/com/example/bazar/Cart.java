@@ -34,16 +34,16 @@ import static com.example.bazar.ProductsDatabase.items_in_cart;
 
 public class Cart extends AppCompatActivity  {
 
-    String id_number;
-    Product product;
-    TextView grand_total;
-    Double grand_ttl;
+    private String id_number;
+    private Product product;
+    private TextView grand_total;
+    private Double grand_ttl;
 
-    RecyclerView display_items;
+    private RecyclerView display_items;
     private RecyclerView.LayoutManager layoutManager;
-    ArrayList<Product> cart;
-    ArrayList<Double> count;
-    ArrayList<CartItem> items_in_cart;
+    private ArrayList<Product> cart;
+    private ArrayList<Double> count;
+    private ArrayList<CartItem> items_in_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,20 +85,24 @@ public class Cart extends AppCompatActivity  {
         count = new ArrayList<>();
         display_items.setAdapter(new CartAdapter(this, items_in_cart));
 
+        /*
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseAuth user = FirebaseAuth.getInstance();
 
         String user_id = user.getUid();
+
 
         DatabaseReference cart = database.getReference(user_id).child("cart");
 
         cart.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Map<String, String> data = (Map<String, String>)dataSnapshot.getValue();
-                if(data!=null){
+                Map<String, String> data_from_server = (Map<String, String>)dataSnapshot.getValue();
+                if(data_from_server!=null){
                     //<TODO> Update recycler view
-
+                    for (Map.Entry<String,String> item: data_from_server.entrySet()){
+                        String id = item.getKey();
+                    }
                 }
 
             }
@@ -123,6 +127,7 @@ public class Cart extends AppCompatActivity  {
 
             }
         });
+        */
 
 
         load_items_into_view();
@@ -139,19 +144,18 @@ public class Cart extends AppCompatActivity  {
         }
         for(int i =0; i<cart.size(); i++){
             double price = Double.valueOf(cart.get(i).getPrice()) * count.get(i);
-            grand_ttl+=price;
             if(cart.get(i).getTitle()==null){
                 Toast toast = Toast.makeText(getApplicationContext(), "Null", Toast.LENGTH_SHORT);
             }
             items_in_cart.add(new CartItem(cart.get(i),count.get(i), cart.get(i).getTitle()));
         }
-        grand_total.setText(String.valueOf(grand_ttl)); //Update the total amount       //Need to add a listener to listen to change in values
 
-        //display_items.setAdapter(new CartAdapter(this, items_in_cart));
+
+
         display_items.swapAdapter(new CartAdapter(this, items_in_cart),true);
         display_items.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
+            public void onChildViewAttachedToWindow(@NonNull View view) {       //Working fine
                 //Update the grand total
                 TextView p = (TextView) view.findViewById(R.id.cart_price_of_item);
                 String pr = p.getText().toString();
@@ -160,7 +164,7 @@ public class Cart extends AppCompatActivity  {
             }
 
             @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
+            public void onChildViewDetachedFromWindow(@NonNull View view) {     //Working fine
                 //deduct the grand total
                 TextView p = (TextView) view.findViewById(R.id.cart_price_of_item);
                 String pr = p.getText().toString();
