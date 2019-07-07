@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,7 +12,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    
+
+    <style name="TextAppearance.AppCompat.Widget.ActionBar.Title." parent="@android:style/TextAppearance">
+        <item name="android:color">@color/colorPrimary </item>
+    </style>
+
+
     <style name="AppTheme.Dark" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/darkColorPrimary</item>
         <item name="colorPrimaryDark">@color/darkColorPrimaryDark</item>

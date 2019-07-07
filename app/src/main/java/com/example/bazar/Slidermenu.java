@@ -42,7 +42,7 @@ public class Slidermenu extends AppCompatActivity
         this.my_products_in_sale= new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidermenu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
